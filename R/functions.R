@@ -14,7 +14,7 @@ plot_influridge <- function(X, y, nw = 100, max.weight = 4, control.list = list(
   lambdaMatrix <- matrix(, n, nw)
 
   startLambda <- stats::optim(
-    par = 1, tuning.cv.svd, w = rep(1,n), svd.int = svd(X), y.int = y,
+    par = 1, tuning_cv_svd, w = rep(1,n), svd.int = svd(X), y.int = y,
     lower = -Inf, upper = Inf,
     method = "L-BFGS-B", control = control.list
   )$par
@@ -26,7 +26,7 @@ plot_influridge <- function(X, y, nw = 100, max.weight = 4, control.list = list(
 
             # find optimal lambda
       lambdaMatrix[j, i] <- stats::optim(
-        par = startLambda, tuning.cv.svd, w = w / sum(w), svd.int = svd(X), y.int = y,
+        par = startLambda, tuning_cv_svd, w = w / sum(w), svd.int = svd(X), y.int = y,
         lower = -Inf, upper = Inf,
         method = "L-BFGS-B", control = control.list
       )$par
