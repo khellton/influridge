@@ -43,8 +43,8 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                        degreeFreedom = FALSE,
                        control.list = list(factr = 1e-8)){
   
-  if(noShrink > 5){print('Number of highlighted shrinkers must be 5 or less') break;}
-  if(noExpand > 5){print('Number of highlighted expanders must be 5 or less') break;}
+  if(noShrink > 5){print('Number of highlighted shrinkers must be 5 or less') }
+  if(noExpand > 5){print('Number of highlighted expanders must be 5 or less') }
   
   n <- dim(X)[1]
   weights <- seq(0, max.weight, length.out = nw) # Weight grid
@@ -93,7 +93,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                     xlab = "Weight of observation", 
                     ylab = "Tuning parameter", 
                     lty = 1, 
-                    lwd = lwt
+                    lwd = lwt,
                     xaxs = "i", yaxs = "i",
                     cex.lab = 1.7, mgp = c(2.8, 1, 0), 
                     cex.axis = 1.5, col = col
@@ -106,7 +106,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                       xlab = "Weight of observation", 
                       ylab = "Tuning parameter", 
                       lty = 1, 
-                      lwd = lwt
+                      lwd = lwt,
                       xaxs = "i", yaxs = "i",
                       cex.lab = 1.7, mgp = c(2.8, 1, 0), 
                       cex.axis = 1.5, col = col
