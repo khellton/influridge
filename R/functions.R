@@ -75,7 +75,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
   col <- rep("grey",n)
   
   sortIndexEnd <- sort(lambdaMatrix[,dim(lambdaMatrix)[2]],
-                  decreasing = FALSE,index.return = true)$ix
+                  decreasing = FALSE,index.return = TRUE)$ix
   
   if(noShrink > 0){
     lwt[sortIndexEnd[1:noExpand]] <- 3
