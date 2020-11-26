@@ -102,7 +102,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                     cex.lab = 1.7, mgp = c(2.8, 1, 0), 
                     cex.axis = 1.5, col = col)
     axis(4,at = lambdaMatrix[,dim(lambdaMatrix)[2]], labels = plotIndex,
-         tick = FALSE,cex.axis=1.5,col = col,las=1)
+         tick = FALSE,cex.axis=1.5,col = col)
     
     } else {
     svd.df <- svd(X)
