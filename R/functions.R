@@ -77,13 +77,13 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
   sortIndexEnd <- sort(lambdaMatrix[,dim(lambdaMatrix)[2]],
                   decreasing = FALSE,index.return = TRUE)$ix
   
-  if(noShrink > 0){
-    lwt[sortIndexEnd[1:noExpand]] <- 3
-    col[sortIndexEnd[1:noExpand]] <- 'blue'  }
+  if(noExpand > 0){
+    lwt[sortIndexEnd[1:(noExpand)]] <- 3
+    col[sortIndexEnd[1:(noExpand)]] <- 'blue'  }
   
   if(noShrink > 0){
-    lwt[sortIndexEnd[(n-noShrink):n]] <- 3
-    col[sortIndexEnd[(n-noShrink):n]] <- 'red'
+    lwt[sortIndexEnd[(n+1-noShrink):n]] <- 3
+    col[sortIndexEnd[(n+1-noShrink):n]] <- 'red'
   }
   
   if(degreeFreedom == FALSE){
