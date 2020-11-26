@@ -33,12 +33,12 @@ influridge(
 \item{control.list}{list, a list of control parameters for the optim function. See 'Details' under graphics::optim.}
 }
 \description{
-This function produces curve plot showing the optimal tuning paramer when up- or downweighting each observation
+This function produces a curve plot showing the optimal tuning paramer when up- or downweighting each observation.
 }
 \examples{
-p <- 5 
-n <- 50 
-sigma <- 1 
+p <- 5
+n <- 50
+sigma <- 1
 beta <- rep(1,p)
 
 ## Simulating design matrix, X
