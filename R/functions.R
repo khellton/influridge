@@ -42,7 +42,7 @@
 #' X <- scale(X, center = F) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
-#' influridge(X,y,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
+#' influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
 #' 
 #' @export
 #' influridge

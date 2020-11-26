@@ -7,12 +7,12 @@
 influridge(
   X,
   y,
-  nw = 100,
+  nw = 40,
   max.weight = 4,
   noExpand = 0,
   noShrink = 0,
   degreeFreedom = FALSE,
-  control.list = list(factr = 1e-08)
+  control.list = list(factr = 1e-04)
 )
 }
 \arguments{
@@ -36,28 +36,38 @@ influridge(
 This function produces curve plot showing the optimal tuning paramer when up- or downweighting each observation
 }
 \examples{
-
 p <- 5 
 n <- 50 
 sigma <- 1 
-beta <- rep(0.1,p)
+beta <- rep(1,p)
 
-Simulating design matrix, X
+## Simulating design matrix, X
 setseed(556)
 X <- matrix(rnorm(n*p),n,p)
 
-Simulate outcome vector, Y
+## Simulate outcome vector, Y
 y <- X \%*\% beta + rnorm(n, 0, sigma)
 
-Plot curves (no highlighted shrinkers/expanders)
+## Plot curves (no highlighted shrinkers/expanders)
 influridge(X,y)
 
-Simulate outcome vector Y, adding a large negative residual to observation 7.
-y <- X \%*\% beta + c(rnorm(6, 0, sigma), -4, rnorm(n - 7, 0, sigma))
+## Adding a large positive residual to observation 35 creates an influential shrinker
+y[35] <- y[35] + 3
 influridge(X,y,noShrink = 1)
 
-Plot degrees of freedom
-y <- X \%*\% beta + c(rnorm(6, 0, sigma), -4, rnorm(n - 7, 0, sigma))
+## Plot degrees of freedom
 influridge(X,y,noShrink = 1,degreeFreedom == TRUE)
+
+## Make plot for Body Fat dataset
+require(mfp)
+data(bodyfat)
+X <- bodyfat[,6:17] # Omit non-continous age variable
+y <- bodyfat$siri
+n <- dim(X)[1]
+
+X <- scale(X, center = F) # Scale data
+X <- cbind(rep(1, n), X) # Add intercept to design matrix
+
+influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
 
 }
