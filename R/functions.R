@@ -9,31 +9,40 @@
 #' @param noShrink scalar, number of shrinkers to be highlighted (less than 5). 
 #' @param degreeFreedom logical, should the degrees of freedom be plotted instead of the tuning parameter (default = FALSE).
 #' @param control.list list, a list of control parameters for the optim function. See 'Details' under graphics::optim. 
-#' 
 #' @examples 
-#' 
 #' p <- 5 
 #' n <- 50 
 #' sigma <- 1 
 #' beta <- rep(0.1,p)
 #' 
-#' Simulating design matrix, X
+#' ## Simulating design matrix, X
 #' setseed(556)
 #' X <- matrix(rnorm(n*p),n,p)
 #'
-#' Simulate outcome vector, Y
+#' ## Simulate outcome vector, Y
 #' y <- X %*% beta + rnorm(n, 0, sigma)
 #' 
-#' Plot curves (no highlighted shrinkers/expanders)
+#' ## Plot curves (no highlighted shrinkers/expanders)
 #' influridge(X,y)
 #' 
-#' Simulate outcome vector Y, adding a large negative residual to observation 7.
-#' y <- X %*% beta + c(rnorm(6, 0, sigma), -4, rnorm(n - 7, 0, sigma))
+#' ## Adding a large positive residual to observation 35 creates an influential shrinker
+#' y[35] <- y[35] + 3
 #' influridge(X,y,noShrink = 1)
 #' 
-#' Plot degrees of freedom
-#' y <- X %*% beta + c(rnorm(6, 0, sigma), -4, rnorm(n - 7, 0, sigma))
+#' ## Plot degrees of freedom
 #' influridge(X,y,noShrink = 1,degreeFreedom == TRUE)
+#' 
+#' ## Make plot for Body Fat dataset
+#' require(mfp)
+#' data(bodyfat)
+#' X <- bodyfat[,6:17] # Omit non-continous age variable
+#' y <- bodyfat$siri
+#' n <- dim(X)[1]
+#' 
+#' X <- scale(X, center = F) # Scale data
+#' X <- cbind(rep(1, n), X) # Add intercept to design matrix
+#'
+#' influridge(X,y,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
 #' 
 #' @export
 #' influridge
