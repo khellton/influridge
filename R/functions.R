@@ -101,14 +101,14 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                     xaxs = "i", yaxs = "i",
                     cex.lab = 1.7, mgp = c(2.8, 1, 0), 
                     cex.axis = 1.5, col = col)
-    axis(4,at = lambdaMatrix[,dim(lambdaMatrix)[2]], labels = plotIndex,
-         tick = FALSE,cex.axis=1.5,col = col)
+    axis(4, at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
+         las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
     
     } else {
     svd.df <- svd(X)
     df <- apply(lambdaMatrix, c(1, 2), function(lam) sum(svd.df$d^2 / (svd.df$d^2 + lam)))
     graphics::matplot(weights, t(df), type = "l", 
-                      ylim = c(min(lambdaMatrix), max(lambdaMatrix)), 
+                      ylim = c(min(df), max(df)), 
                       xlim = c(0, max(weights) + 0.1), 
                       xlab = "Weight of observation", 
                       ylab = "Tuning parameter", 
@@ -116,8 +116,9 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                       lwd = lwt,
                       xaxs = "i", yaxs = "i",
                       cex.lab = 1.7, mgp = c(2.8, 1, 0), 
-                      cex.axis = 1.5, col = col
-    )
+                      cex.axis = 1.5, col = col)
+    axis(4, at = df[, dim(df)[2]], labels = plotIndex,
+         las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
   }
 }
 
