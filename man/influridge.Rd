@@ -4,16 +4,7 @@
 \alias{influridge}
 \title{Influence of single observations on the choice of the penalty parameter in ridge regression}
 \usage{
-influridge(
-  X,
-  y,
-  nw = 40,
-  max.weight = 4,
-  noExpand = 0,
-  noShrink = 0,
-  degreeFreedom = FALSE,
-  control.list = list(factr = 1e-04)
-)
+influridge(X, y, nw = 40, max.weight = 4, noExpand = 0, noShrink = 0, degreeFreedom = FALSE, control.list = list(factr = 1e-04))
 }
 \arguments{
 \item{X}{numerical input matrix, of dimension nobs x nvars; each row is an observation vector.}
