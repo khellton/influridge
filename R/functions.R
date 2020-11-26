@@ -13,7 +13,7 @@
 #' p <- 5 
 #' n <- 50 
 #' sigma <- 1 
-#' beta <- rep(0.1,p)
+#' beta <- rep(1,p)
 #' 
 #' ## Simulating design matrix, X
 #' setseed(556)
@@ -47,10 +47,10 @@
 #' @export
 #' influridge
 
-influridge <- function(X, y, nw = 100, max.weight = 4, 
+influridge <- function(X, y, nw = 40, max.weight = 4, 
                        noExpand = 0, noShrink = 0, 
                        degreeFreedom = FALSE,
-                       control.list = list(factr = 1e-8)){
+                       control.list = list(factr = 1e-4)){
   
   if(noShrink > 5){print('Number of highlighted shrinkers must be 5 or less') }
   if(noExpand > 5){print('Number of highlighted expanders must be 5 or less') }
@@ -73,7 +73,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
             # find optimal lambda
       lambdaMatrix[j, i] <- stats::optim(
         par = startLambda, tuning_cv_svd, w = w / sum(w), svd.int = svd(X), y.int = y,
-        lower = -Inf, upper = Inf,
+        lower = 0, upper = Inf,
         method = "L-BFGS-B", control = control.list
       )$par
     }
