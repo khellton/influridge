@@ -9,6 +9,7 @@
 #' @param noShrink scalar, number of shrinkers to be highlighted (less than 5). 
 #' @param degreeFreedom logical, should the degrees of freedom be plotted instead of the tuning parameter (default = FALSE).
 #' @param control.list list, a list of control parameters for the optim function. See 'Details' under graphics::optim. 
+#' @export
 #' @examples 
 #' p <- 5 
 #' n <- 50 
@@ -44,8 +45,6 @@
 #'
 #' influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
 #' 
-#' @export
-#' influridge
 
 influridge <- function(X, y, nw = 40, max.weight = 4, 
                        noExpand = 0, noShrink = 0, 
