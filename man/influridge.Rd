@@ -4,7 +4,16 @@
 \alias{influridge}
 \title{Influence of single observations on the choice of the penalty parameter in ridge regression}
 \usage{
-influridge(X, y, nw = 40, max.weight = 4, noExpand = 0, noShrink = 0, degreeFreedom = FALSE, control.list = list(factr = 1e-04))
+influridge(
+  X,
+  y,
+  nw = 40,
+  max.weight = 4,
+  noExpand = 0,
+  noShrink = 0,
+  degreeFreedom = FALSE,
+  control.list = list(factr = 1e-04)
+)
 }
 \arguments{
 \item{X}{numerical input matrix, of dimension nobs x nvars; each row is an observation vector.}
@@ -33,7 +42,7 @@ sigma <- 1
 beta <- rep(1,p)
 
 ## Simulating design matrix, X
-setseed(556)
+set.seed(556)
 X <- matrix(rnorm(n*p),n,p)
 
 ## Simulate outcome vector, Y
@@ -59,6 +68,6 @@ n <- dim(X)[1]
 X <- scale(X, center = F) # Scale data
 X <- cbind(rep(1, n), X) # Add intercept to design matrix
 
-influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
+influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
 
 }
