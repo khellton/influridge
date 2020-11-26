@@ -87,7 +87,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
   if(noShrink > 0){
     lwt[sortIndexEnd[(n+1-noShrink):n]] <- 3
     col[sortIndexEnd[(n+1-noShrink):n]] <- 'red'
-    plotIndex[sortIndexEnd[1:(noShrink)]] <- as.character(sortIndexEnd[1:(noShrink)])
+    plotIndex[sortIndexEnd[(n+1-noShrink):n]] <- as.character(sortIndexEnd[(n+1-noShrink):n])
   }
   
   if(degreeFreedom == FALSE){
@@ -102,7 +102,7 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                     cex.lab = 1.7, mgp = c(2.8, 1, 0), 
                     cex.axis = 1.5, col = col)
     axis(4,at = lambdaMatrix[,dim(lambdaMatrix)[2]], labels = plotIndex,
-         tick = FALSE,cex.axis=1.5,col = col)
+         tick = FALSE,cex.axis=1.5,col = col,las=1)
     
     } else {
     svd.df <- svd(X)
