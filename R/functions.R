@@ -73,17 +73,21 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
   #Set 
   lwt <- rep(1,n)
   col <- rep("grey",n)
+  plotIndex <- rep('',n)
   
   sortIndexEnd <- sort(lambdaMatrix[,dim(lambdaMatrix)[2]],
                   decreasing = FALSE,index.return = TRUE)$ix
   
   if(noExpand > 0){
     lwt[sortIndexEnd[1:(noExpand)]] <- 3
-    col[sortIndexEnd[1:(noExpand)]] <- 'blue'  }
+    col[sortIndexEnd[1:(noExpand)]] <- 'blue'
+    plotIndex[sortIndexEnd[1:(noExpand)]] <- as.character(sortIndexEnd[1:(noExpand)])
+  }
   
   if(noShrink > 0){
     lwt[sortIndexEnd[(n+1-noShrink):n]] <- 3
     col[sortIndexEnd[(n+1-noShrink):n]] <- 'red'
+    plotIndex[sortIndexEnd[1:(noShrink)]] <- as.character(sortIndexEnd[1:(noShrink)])
   }
   
   if(degreeFreedom == FALSE){
@@ -96,8 +100,11 @@ influridge <- function(X, y, nw = 100, max.weight = 4,
                     lwd = lwt,
                     xaxs = "i", yaxs = "i",
                     cex.lab = 1.7, mgp = c(2.8, 1, 0), 
-                    cex.axis = 1.5, col = col
-    )} else {
+                    cex.axis = 1.5, col = col)
+    axis(4,at = lambdaMatrix[,dim(lambdaMatrix)[2]], labels = plotIndex,
+         tick = FALSE,cex.axis=1.5,col = col)
+    
+    } else {
     svd.df <- svd(X)
     df <- apply(lambdaMatrix, c(1, 2), function(lam) sum(svd.df$d^2 / (svd.df$d^2 + lam)))
     graphics::matplot(weights, t(df), type = "l", 
