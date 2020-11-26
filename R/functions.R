@@ -18,7 +18,7 @@
 #' beta <- rep(1,p)
 #'
 #' ## Simulating design matrix, X
-#' setseed(556)
+#' set.seed(556)
 #' X <- matrix(rnorm(n*p),n,p)
 #'
 #' ## Simulate outcome vector, Y
@@ -44,7 +44,7 @@
 #' X <- scale(X, center = F) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
-#' influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom == TRUE)
+#' influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
 #'
 
 influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degreeFreedom = FALSE,control.list = list(factr = 1e-4)) {
