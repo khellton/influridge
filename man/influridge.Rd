@@ -65,7 +65,7 @@ X <- bodyfat[,6:17] # Omit non-continous age variable
 y <- bodyfat$siri
 n <- dim(X)[1]
 
-X <- scale(X, center = F) # Scale data
+X <- scale(X, center = FALSE) # Scale data
 X <- cbind(rep(1, n), X) # Add intercept to design matrix
 
 influridge(X,y,nw=5,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)

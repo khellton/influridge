@@ -8,7 +8,7 @@ Authors@R:
            email = "hellton@nr.no",
            comment = c(ORCID = "0000-0002-4779-486X"))
 Suggests: mfp
-Description: This package supplies a visual tool to assess the influence of single observations on the choice of the penalty parameter in ridge regressions, based on the approach of Hellton, Lingjære and De Bin (2020) (arxiv.org/abs/1911.03662). It supplies a curve plot of the optimal ridge tuning paramer when up- or downweighting each observation to identify observations as shrinkers 
+Description: This package supplies a visual tool to assess the influence of single observations on the choice of the penalty parameter in ridge regressions based on the approach of Hellton, Lingjære and De Bin (2020) (arxiv.org/abs/1911.03662). It supplies a curve plot of the optimal ridge tuning paramer when up- or downweighting each observation to identify observations as shrinkers or expanders.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

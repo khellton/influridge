@@ -15,11 +15,11 @@
 #' p <- 5
 #' n <- 50
 #' sigma <- 1
-#' beta <- rep(1,p)
+#' beta <- rep(1, p)
 #'
 #' ## Simulating design matrix, X
 #' set.seed(556)
-#' X <- matrix(rnorm(n*p),n,p)
+#' X <- matrix(rnorm(n*p), n, p)
 #'
 #' ## Simulate outcome vector, Y
 #' y <- X %*% beta + rnorm(n, 0, sigma)
