@@ -1,15 +1,14 @@
 Package: influridge
-Title: What the Package Does (One Line, Title Case)
+Title: Visualize Influence of Observations in Ridge Regression
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+    person(given = "Kristoffer",
+           family = "Hellton",
+           role = c("aut"),
+           email = "hellton@nr.no",
+           comment = c(ORCID = "0000-0002-4779-486X"))
+Description: This package supplies a visual tool to assess the influence of single observations on the choice of the penalty parameter in ridge regressions, based on the approach of Hellton, Lingjære and De Bin (2020) (arxiv.org/abs/1911.03662). It supplies a curve plot of the optimal ridge tuning paramer when up- or downweighting each observation to identify observations as shrinkers or expanders. 
+License: `use_mit_license()`
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
