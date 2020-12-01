@@ -32,7 +32,7 @@
 #' influridge(X,y,noShrink = 1)
 #'
 #' ## Plot degrees of freedom
-#' influridge(X,y,noShrink = 1,degreeFreedom == TRUE)
+#' influridge(X,y,noShrink = 1,degreeFreedom = TRUE)
 #'
 #' ## Make plot for Body Fat dataset
 #' require(mfp)
@@ -44,7 +44,7 @@
 #' X <- scale(X, center = F) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
-#' influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
+#' influridge(X,y,nw=5,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
 #'
 
 influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degreeFreedom = FALSE,control.list = list(factr = 1e-4)) {
@@ -107,9 +107,9 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
                     xaxs = "i", yaxs = "i",
                     cex.lab = 1.7, mgp = c(2.8, 1, 0),
                     cex.axis = 1.5, col = col)
-    axis(4, at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
+    graphics::axis(4, at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
          las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
-
+    abline(v = 1, lty = 2, col = gray)
     } else {
     svd.df <- svd(X)
     df <- apply(lambdaMatrix, c(1, 2), function(lam) sum(svd.df$d^2 / (svd.df$d^2 + lam)))
@@ -123,8 +123,9 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
                       xaxs = "i", yaxs = "i",
                       cex.lab = 1.7, mgp = c(2.8, 1, 0),
                       cex.axis = 1.5, col = col)
-    axis(4, at = df[, dim(df)[2]], labels = plotIndex,
+    graphics::axis(4, at = df[, dim(df)[2]], labels = plotIndex,
          las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
+    abline(v = 1, lty = 2, col = gray)
   }
 }
 
