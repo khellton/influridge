@@ -141,6 +141,6 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
 
 tuning_cv_svd <- function(lambda, w, svd.int,y.int) {
   H <- svd.int$u %*% diag(svd.int$d^2 / (svd.int$d^2 + lambda)) %*% t(svd.int$u)
-  e <- (diag(length(y)) - H) %*% y.int
+  e <- (diag(length(y.int)) - H) %*% y.int
   return(mean(w * (e / (1 - diag(H)))^2))
 }
