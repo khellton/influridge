@@ -13,7 +13,7 @@
 #' influridge
 #' @examples
 #' p <- 5
-#' n <- 50
+#' n <- 20
 #' sigma <- 1
 #' beta <- rep(1, p)
 #'
@@ -34,6 +34,7 @@
 #' ## Plot degrees of freedom
 #' influridge(X, y, noShrink = 1, degreeFreedom = TRUE)
 #'
+#' \dontrun{
 #' ## Make plot for Body Fat dataset
 #' require(mfp)
 #' data(bodyfat)
@@ -45,6 +46,7 @@
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
 #' influridge(X, y, nw = 5, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
+#' }
 influridge <- function(X, y, nw = 40, max.weight = 4, noExpand = 0, noShrink = 0, degreeFreedom = FALSE, control.list = list(factr = 1e-4)) {
   if (noShrink > 5) {
     print("Number of highlighted shrinkers must be 5 or less")
