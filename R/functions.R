@@ -29,10 +29,10 @@
 #'
 #' ## Adding a large positive residual to observation 10 creates an influential shrinker
 #' y[10] <- y[10] + 3
-#' influridge(X, y, noShrink = 1)
+#' influridge(X, y, noShrink = 1, nw = 20)
 #'
 #' ## Plot degrees of freedom
-#' influridge(X, y, noShrink = 1, degreeFreedom = TRUE)
+#' influridge(X, y, noShrink = 1, nw = 20, degreeFreedom = TRUE)
 #'
 #' \dontrun{
 #' ## Make plot for Body Fat dataset
@@ -45,7 +45,7 @@
 #' X <- scale(X, center = FALSE) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
-#' influridge(X, y, nw = 5, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
+#' influridge(X, y, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
 #' }
 influridge <- function(X, y, nw = 40, max.weight = 4, noExpand = 0, noShrink = 0, degreeFreedom = FALSE, control.list = list(factr = 1e-4)) {
   if (noShrink > 5) {

@@ -51,12 +51,12 @@ y <- X \%*\% beta + rnorm(n, 0, sigma)
 ## Plot curves (no highlighted shrinkers/expanders)
 influridge(X, y)
 
-## Adding a large positive residual to observation 35 creates an influential shrinker
-y[35] <- y[35] + 3
-influridge(X, y, noShrink = 1)
+## Adding a large positive residual to observation 10 creates an influential shrinker
+y[10] <- y[10] + 3
+influridge(X, y, noShrink = 1, nw = 20)
 
 ## Plot degrees of freedom
-influridge(X, y, noShrink = 1, degreeFreedom = TRUE)
+influridge(X, y, noShrink = 1, nw = 20, degreeFreedom = TRUE)
 
 \dontrun{
 ## Make plot for Body Fat dataset
@@ -69,6 +69,6 @@ n <- dim(X)[1]
 X <- scale(X, center = FALSE) # Scale data
 X <- cbind(rep(1, n), X) # Add intercept to design matrix
 
-influridge(X, y, nw = 5, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
+influridge(X, y, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
 }
 }
