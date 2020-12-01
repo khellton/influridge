@@ -19,45 +19,46 @@
 #'
 #' ## Simulating design matrix, X
 #' set.seed(556)
-#' X <- matrix(rnorm(n*p), n, p)
+#' X <- matrix(rnorm(n * p), n, p)
 #'
 #' ## Simulate outcome vector, Y
 #' y <- X %*% beta + rnorm(n, 0, sigma)
 #'
 #' ## Plot curves (no highlighted shrinkers/expanders)
-#' influridge(X,y)
+#' influridge(X, y)
 #'
 #' ## Adding a large positive residual to observation 35 creates an influential shrinker
 #' y[35] <- y[35] + 3
-#' influridge(X,y,noShrink = 1)
+#' influridge(X, y, noShrink = 1)
 #'
 #' ## Plot degrees of freedom
-#' influridge(X,y,noShrink = 1,degreeFreedom = TRUE)
+#' influridge(X, y, noShrink = 1, degreeFreedom = TRUE)
 #'
 #' ## Make plot for Body Fat dataset
 #' require(mfp)
 #' data(bodyfat)
-#' X <- bodyfat[,6:17] # Omit non-continous age variable
+#' X <- bodyfat[, 6:17] # Omit non-continous age variable
 #' y <- bodyfat$siri
 #' n <- dim(X)[1]
 #'
 #' X <- scale(X, center = FALSE) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
-#' influridge(X,y,nw=5,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
-#'
-
-influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degreeFreedom = FALSE,control.list = list(factr = 1e-4)) {
-
-  if(noShrink > 5){print('Number of highlighted shrinkers must be 5 or less') }
-  if(noExpand > 5){print('Number of highlighted expanders must be 5 or less') }
+#' influridge(X, y, nw = 5, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
+influridge <- function(X, y, nw = 40, max.weight = 4, noExpand = 0, noShrink = 0, degreeFreedom = FALSE, control.list = list(factr = 1e-4)) {
+  if (noShrink > 5) {
+    print("Number of highlighted shrinkers must be 5 or less")
+  }
+  if (noExpand > 5) {
+    print("Number of highlighted expanders must be 5 or less")
+  }
 
   n <- dim(X)[1]
   weights <- seq(0, max.weight, length.out = nw) # Weight grid
   lambdaMatrix <- matrix(, n, nw)
 
   startLambda <- stats::optim(
-    par = 1, tuning_cv_svd, w = rep(1,n), svd.int = svd(X), y.int = y,
+    par = 1, tuning_cv_svd, w = rep(1, n), svd.int = svd(X), y.int = y,
     lower = -Inf, upper = Inf,
     method = "L-BFGS-B", control = control.list
   )$par
@@ -67,7 +68,7 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
       w <- rep(1, n)
       w[j] <- weights[i] # Weight to give observation j
 
-            # find optimal lambda
+      # find optimal lambda
       lambdaMatrix[j, i] <- stats::optim(
         par = startLambda, tuning_cv_svd, w = w / sum(w), svd.int = svd(X), y.int = y,
         lower = 0, upper = Inf,
@@ -76,56 +77,65 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
     }
   }
 
-  #Set
-  lwt <- rep(1,n)
-  col <- rep("grey",n)
-  plotIndex <- rep('',n)
+  # Set
+  lwt <- rep(1, n)
+  col <- rep("grey", n)
+  plotIndex <- rep("", n)
 
-  sortIndexEnd <- sort(lambdaMatrix[,dim(lambdaMatrix)[2]],
-                  decreasing = FALSE,index.return = TRUE)$ix
+  sortIndexEnd <- sort(lambdaMatrix[, dim(lambdaMatrix)[2]],
+    decreasing = FALSE, index.return = TRUE
+  )$ix
 
-  if(noExpand > 0){
+  if (noExpand > 0) {
     lwt[sortIndexEnd[1:(noExpand)]] <- 3
-    col[sortIndexEnd[1:(noExpand)]] <- 'blue'
+    col[sortIndexEnd[1:(noExpand)]] <- "blue"
     plotIndex[sortIndexEnd[1:(noExpand)]] <- as.character(sortIndexEnd[1:(noExpand)])
   }
 
-  if(noShrink > 0){
-    lwt[sortIndexEnd[(n+1-noShrink):n]] <- 3
-    col[sortIndexEnd[(n+1-noShrink):n]] <- 'red'
-    plotIndex[sortIndexEnd[(n+1-noShrink):n]] <- as.character(sortIndexEnd[(n+1-noShrink):n])
+  if (noShrink > 0) {
+    lwt[sortIndexEnd[(n + 1 - noShrink):n]] <- 3
+    col[sortIndexEnd[(n + 1 - noShrink):n]] <- "red"
+    plotIndex[sortIndexEnd[(n + 1 - noShrink):n]] <- as.character(sortIndexEnd[(n + 1 - noShrink):n])
   }
 
-  if(degreeFreedom == FALSE){
-    graphics::matplot(weights, t(lambdaMatrix), type = "l",
-                    ylim = c(min(lambdaMatrix), max(lambdaMatrix)),
-                    xlim = c(0, max(weights) + 0.1),
-                    xlab = "Weight of observation",
-                    ylab = "Tuning parameter",
-                    lty = 1,
-                    lwd = lwt,
-                    xaxs = "i", yaxs = "i",
-                    cex.lab = 1.7, mgp = c(2.8, 1, 0),
-                    cex.axis = 1.5, col = col)
-    graphics::axis(4, at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
-         las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
-    graphics::abline(v = 1, lty = 2, col = 'gray')
-    } else {
+  if (degreeFreedom == FALSE) {
+    graphics::matplot(weights, t(lambdaMatrix),
+      type = "l",
+      ylim = c(min(lambdaMatrix), max(lambdaMatrix)),
+      xlim = c(0, max(weights) + 0.1),
+      xlab = "Weight of observation",
+      ylab = "Tuning parameter",
+      lty = 1,
+      lwd = lwt,
+      xaxs = "i", yaxs = "i",
+      cex.lab = 1.7, mgp = c(2.8, 1, 0),
+      cex.axis = 1.5, col = col
+    )
+    graphics::axis(4,
+      at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
+      las = 2, gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj = 0.6
+    )
+    graphics::abline(v = 1, lty = 2, col = "gray")
+  } else {
     svd.df <- svd(X)
     df <- apply(lambdaMatrix, c(1, 2), function(lam) sum(svd.df$d^2 / (svd.df$d^2 + lam)))
-    graphics::matplot(weights, t(df), type = "l",
-                      ylim = c(min(df), max(df)),
-                      xlim = c(0, max(weights) + 0.1),
-                      xlab = "Weight of observation",
-                      ylab = "Tuning parameter",
-                      lty = 1,
-                      lwd = lwt,
-                      xaxs = "i", yaxs = "i",
-                      cex.lab = 1.7, mgp = c(2.8, 1, 0),
-                      cex.axis = 1.5, col = col)
-    graphics::axis(4, at = df[, dim(df)[2]], labels = plotIndex,
-         las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
-    graphics::abline(v = 1, lty = 2, col = 'gray')
+    graphics::matplot(weights, t(df),
+      type = "l",
+      ylim = c(min(df), max(df)),
+      xlim = c(0, max(weights) + 0.1),
+      xlab = "Weight of observation",
+      ylab = "Tuning parameter",
+      lty = 1,
+      lwd = lwt,
+      xaxs = "i", yaxs = "i",
+      cex.lab = 1.7, mgp = c(2.8, 1, 0),
+      cex.axis = 1.5, col = col
+    )
+    graphics::axis(4,
+      at = df[, dim(df)[2]], labels = plotIndex,
+      las = 2, gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj = 0.6
+    )
+    graphics::abline(v = 1, lty = 2, col = "gray")
   }
 }
 
@@ -139,7 +149,7 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
 #' @export
 #' tuning_cv_svd
 
-tuning_cv_svd <- function(lambda, w, svd.int,y.int) {
+tuning_cv_svd <- function(lambda, w, svd.int, y.int) {
   H <- svd.int$u %*% diag(svd.int$d^2 / (svd.int$d^2 + lambda)) %*% t(svd.int$u)
   e <- (diag(length(y.int)) - H) %*% y.int
   return(mean(w * (e / (1 - diag(H)))^2))
