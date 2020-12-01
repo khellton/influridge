@@ -56,7 +56,7 @@ y[35] <- y[35] + 3
 influridge(X,y,noShrink = 1)
 
 ## Plot degrees of freedom
-influridge(X,y,noShrink = 1,degreeFreedom == TRUE)
+influridge(X,y,noShrink = 1,degreeFreedom = TRUE)
 
 ## Make plot for Body Fat dataset
 require(mfp)
@@ -68,6 +68,6 @@ n <- dim(X)[1]
 X <- scale(X, center = F) # Scale data
 X <- cbind(rep(1, n), X) # Add intercept to design matrix
 
-influridge(X,y,nw=20,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
+influridge(X,y,nw=5,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
 
 }

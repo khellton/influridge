@@ -41,7 +41,7 @@
 #' y <- bodyfat$siri
 #' n <- dim(X)[1]
 #'
-#' X <- scale(X, center = F) # Scale data
+#' X <- scale(X, center = FALSE) # Scale data
 #' X <- cbind(rep(1, n), X) # Add intercept to design matrix
 #'
 #' influridge(X,y,nw=5,noShrink = 1,noExpand = 1,degreeFreedom = TRUE)
@@ -109,7 +109,7 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
                     cex.axis = 1.5, col = col)
     graphics::axis(4, at = lambdaMatrix[, dim(lambdaMatrix)[2]], labels = plotIndex,
          las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
-    graphics::abline(v = 1, lty = 2, col = gray)
+    graphics::abline(v = 1, lty = 2, col = 'gray')
     } else {
     svd.df <- svd(X)
     df <- apply(lambdaMatrix, c(1, 2), function(lam) sum(svd.df$d^2 / (svd.df$d^2 + lam)))
@@ -125,7 +125,7 @@ influridge <- function(X,y,nw = 40,max.weight = 4,noExpand = 0,noShrink = 0,degr
                       cex.axis = 1.5, col = col)
     graphics::axis(4, at = df[, dim(df)[2]], labels = plotIndex,
          las=2,gap.axis = -1, tick = FALSE, cex.axis = 1.5, hadj	= 0.6)
-    graphics::abline(v = 1, lty = 2, col = gray)
+    graphics::abline(v = 1, lty = 2, col = 'gray')
   }
 }
 
