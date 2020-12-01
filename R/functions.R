@@ -27,8 +27,8 @@
 #' ## Plot curves (no highlighted shrinkers/expanders)
 #' influridge(X, y)
 #'
-#' ## Adding a large positive residual to observation 35 creates an influential shrinker
-#' y[35] <- y[35] + 3
+#' ## Adding a large positive residual to observation 10 creates an influential shrinker
+#' y[10] <- y[10] + 3
 #' influridge(X, y, noShrink = 1)
 #'
 #' ## Plot degrees of freedom

@@ -37,7 +37,7 @@ This function produces a curve plot showing the optimal tuning paramer when up- 
 }
 \examples{
 p <- 5
-n <- 50
+n <- 20
 sigma <- 1
 beta <- rep(1, p)
 
@@ -58,6 +58,7 @@ influridge(X, y, noShrink = 1)
 ## Plot degrees of freedom
 influridge(X, y, noShrink = 1, degreeFreedom = TRUE)
 
+\dontrun{
 ## Make plot for Body Fat dataset
 require(mfp)
 data(bodyfat)
@@ -69,4 +70,5 @@ X <- scale(X, center = FALSE) # Scale data
 X <- cbind(rep(1, n), X) # Add intercept to design matrix
 
 influridge(X, y, nw = 5, noShrink = 1, noExpand = 1, degreeFreedom = TRUE)
+}
 }
